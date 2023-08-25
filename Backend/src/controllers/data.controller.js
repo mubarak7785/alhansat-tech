@@ -6,7 +6,9 @@ const Data=require("../models/data.model")
 
 router.post("", async function (req, res) {
     try {
-      const data = await Data.create(req.body);
+        const {title,description,status}=req.body;
+        const date=new Date()
+      const data = await Data.create({title,description,status,Date:date});
       return res.status(201).send(data);
     } catch (err) {
       return res.status(500).send(err.message);
