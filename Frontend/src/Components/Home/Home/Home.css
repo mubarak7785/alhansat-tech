@@ -1,0 +1,91 @@
+/* Home.css */
+
+.container {
+  width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    gap: 10px;
+  }
+  
+  .to-do>div, .doing>div, .done>div {
+    flex: 1;
+    margin: 0 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    height: 500px; 
+    overflow-y: auto; 
+   
+  }
+ 
+  .card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  }
+
+  p{
+    font-size: 16 px;
+  }
+  *{
+    font-family :Arial, Helvetica, sans-serif;
+  }
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+ 
+  
+  }
+  
+  p {
+    margin: 5px 0;
+  }
+  
+  select {
+    margin: 5px 8px;
+    padding: 5px;
+  }
+  
+  button {
+    padding: 10px 15px;
+    margin: 5px 8px;
+    background-color: green;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  h3{
+    color: rgb(71, 69, 69);
+  }
+  button:hover {
+    background-color: #515d59ac;
+  }
+  .del{
+    background-color: red;
+  }
+  
+  /* Responsive layout for smaller screens */
+  @media (max-width: 768px) {
+    .container {
+      flex-direction: column;
+    }
+  
+    .to-do, .doing, .done {
+      height: auto; /* Reset height for smaller screens */
+      margin: 10px 0;
+    }
+  }
+
+  input,textarea{
+    border: none;
+    font-size: 16px;
+    text-align: center;
+
+  }
+  
