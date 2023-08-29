@@ -9,6 +9,7 @@ export const Home = () => {
   const [doingData, setDoingData] = useState([]);
   const [doneData, setDoneData] = useState([]);
   const [btn, setBtn] = useState(false);
+  const [status,setStatus]=useState()
 
   useEffect(() => {
     fetchData();
@@ -65,6 +66,42 @@ fetchData()
     }
     
   }
+const handleDelete = async (delId) => {
+  try {
+    await fetch(`http://localhost:2954/data/${delId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    alert("Task has been Deleted!");
+    fetchData();
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+const handleChangeStatus=async(satId)=>{
+  try{
+      let obj={}
+      obj.status=event.target.value
+      console.log(obj)
+      setStatus(obj)
+      await fetch(`http://localhost:2954/data/${satId}`,{
+        method : "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(obj),
+      })
+      alert("Status has been updated!")
+      fetchData()
+  }
+  catch(e){
+    console.log(e)
+  }
+}
+
 
   return (
     <div className="container">
@@ -92,7 +129,7 @@ fetchData()
               )}
 
               <p>Status: {e.status}</p>
-              <select name="" id="">
+              <select onChange={()=>{handleChangeStatus(e._id)}} name="" id="">
                 <option value="">Select</option>
                 <option value="To-do">To-do</option>
                 <option value="Doing">Doing</option>
@@ -105,7 +142,7 @@ fetchData()
               >
                 {btn ? "Save" : "Edit Task"}
               </button>
-              <button className="del">Delete task</button>
+              <button className="del" onClick={()=>{handleDelete(e._id)}}>Delete task</button>
             </div>
           ))}
         </div>
@@ -139,7 +176,7 @@ fetchData()
               <h3>Title: {e.title}</h3>
               <p>Description: {e.description}</p>
               <p>Status: {e.status}</p>
-              <select name="" id="">
+              <select  name="" id="">
                 <option value="">Select</option>
                 <option value="To-do">To-do</option>
                 <option value="Doing">Doing</option>

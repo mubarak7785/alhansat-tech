@@ -35,7 +35,8 @@ router.post("", async function (req, res) {
 
   router.patch("/:id",async(req,res)=>{
     try {
-        const delitem=await Data.findByIdAndUpdate(req.params.id);
+      const itemId = req.params.id;
+        const delitem=await Data.findByIdAndUpdate(itemId,req.body,{new:true});
         return res.status(200).send(delitem)
     } catch (error) {
         return res.status(500).send(error.message)
