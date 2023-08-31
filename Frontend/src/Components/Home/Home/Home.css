@@ -1,4 +1,4 @@
-/* Home.css */
+
 
 .container {
   width: 100%;
@@ -11,12 +11,12 @@
 .doing > div,
 .done > div {
   flex: 1;
-  width: 400px;
+  width: 380px;
   margin: 0 10px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  max-height: 500px; /* Set maximum height for the columns */
+  max-height: 500px; 
   overflow-y: auto;
 }
 
@@ -75,25 +75,69 @@ button:hover {
   background-color: red;
 }
 
-/* Responsive layout for smaller screens */
+
 @media (max-width: 768px) {
   .container {
     flex-direction: column;
   }
   
   .to-do, .doing, .done {
-    height: auto; /* Reset height for smaller screens */
+    height: auto; 
     margin: 10px 0;
   }
 }
 
-.container > input,
-.container > textarea {
+.container input,
+.container textarea {
   border: none;
-  font-size: 16px;
+  font-size: 19px;
   text-align: center;
 
 }
-input,textarea{
+.container textarea{
   border: none;
+  font-size: 16px;
+  text-align: center;
+  margin-top: 15px;
+}
+
+
+.nav-div {
+  background-color: #605239; 
+  color: white; 
+  padding: 10px;
+  text-align: center;
+  margin: 0%;
+  width: 100%;
+  margin-top: -30px;
+  color: white;
+}
+.nav-div h2{
+  margin: 0%;
+  letter-spacing: 2px;
+}
+
+.nav-btn button {
+  background-color: #3c64e7; 
+  color: white; 
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+  margin-top: 20px;
+  margin-bottom: -40px;
+}
+.nav-btn{
+  margin-bottom: -10px;
+}
+
+
+.nav-btn button a {
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+}
+.nav-btn button:hover{
+  background-color: #b17084;
+  color: rgb(255, 255, 255);
 }

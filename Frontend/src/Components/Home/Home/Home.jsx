@@ -23,7 +23,7 @@ export const Home = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch("http://localhost:2554/data");
+      const response = await fetch("https://kanban-task-z27k.onrender.com/data");
       const fetchedData = await response.json();
       setData(fetchedData);
     } catch (error) {
@@ -60,7 +60,7 @@ export const Home = () => {
   
   const updateTask = async (id, editeddata) => {
     try {
-      await fetch(`http://localhost:2554/data/${id}`, {
+      await fetch(`https://kanban-task-z27k.onrender.com/data/${id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -80,7 +80,7 @@ export const Home = () => {
 
   const handleDelete = async (delId) => {
     try {
-      await fetch(`http://localhost:2554/data/${delId}`, {
+      await fetch(`https://kanban-task-z27k.onrender.com/data/${delId}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -103,7 +103,7 @@ export const Home = () => {
       const newStatus = event.target.value;
       setStatus(newStatus);
       const obj = { status: newStatus };
-      await fetch(`http://localhost:2554/data/${satId}`, {
+      await fetch(`https://kanban-task-z27k.onrender.com/data/${satId}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -116,6 +116,7 @@ export const Home = () => {
         'Please click the button!',
         'success'
       )
+     setStatus({})
       fetchData();
     } catch (e) {
       console.log(e);
@@ -123,176 +124,187 @@ export const Home = () => {
   };
 
   return (
-    <div className="container">
-      
-      <div className="to-do">
-        <h2>To-Do</h2>
-        <div>
-          {toDoData.map((e) => (
-            <div className="card" key={e.id}>
-              {btn ? (
-                <input
-                  type="text"
-                  onChange={(e)=>handleEditChange(e,e._id)}
-                  id="title"
-                  value={
-                    e._id === editeddata.id ? editeddata.title || e.title : e.title
-                  }
-                />
-              ) : (
-                <h3>Title: {e.title}</h3>
-              )}
-              {btn ? (
-                <textarea
-                  name=""
-                  id="description"
-                  cols="40"
-                  rows="2"
-                  value={e._id === editeddata.id ? editeddata.description || e.description : e.description}
-                  onChange={handleEditChange}
-                ></textarea>
-              ) : (
-                <p>Description: {e.description}</p>
-              )}
+    <div>
+    <div className="nav-div">
+    <h2>KANBAN  BOARD  TASK  MANAGENENT</h2>
+    </div>
+    <div className="nav-btn">
+   <Link to="/add"> <button>Click Here To Add Task</button></Link>
+    </div>
+    <div className="container">  
+    <div className="to-do">
+      <h2>To-Do</h2>
+      <div>
+        {toDoData.map((e) => (
+          <div className="card" key={e.id}>
+         
+            { 
+              (btn && e._id === editeddata.id)? (
+              <input
+                type="text"
+                onChange={(e)=>handleEditChange(e,e._id)}
+                id="title"
+                value={
+                  e._id === editeddata.id ? editeddata.title || e.title : e.title
+                }
+              />
+            ) : (
+              <h3>Title: {e.title}</h3>
+            )}
+            {(btn && e._id === editeddata.id) ? (
+              <textarea
+                name=""
+                id="description"
+                cols="40"
+                rows="2"
+                value={e._id === editeddata.id ? editeddata.description || e.description : e.description}
+                onChange={handleEditChange}
+              ></textarea>
+            ) : (
+              <p>Description: {e.description}</p>
+            )}
 
-              <p>Status: {e.status}</p>
-              <select
-                onChange={(event) => {
-                  handleChangeStatus(e._id, event);
-                }}
-                value={status} 
-              >
-                <option value="">Select</option>
-                <option value="To-do">To-do</option>
-                <option value="Doing">Doing</option>
-                <option value="Done">Done</option>
-              </select>
-              <button
-                onClick={() => {
-                  handleEdit(e._id);
-                }}
-              >
-                {btn && e._id === editeddata.id ? "Save" : "Edit Task"}
-              </button>
-              <button className="del" onClick={() => handleDelete(e._id)}>
-                Delete task
-              </button>
-            </div>
-          ))}
-        </div>
-      </div>
-      <div className="doing">
-        <h2>Doing</h2>
-        <div>
-          {doingData.map((e) => (
-            <div className="card" key={e.id}>
-              {btn ? (
-                <input
-                  type="text"
-                  onChange={(e)=>handleEditChange(e,e._id)}
-                  id="title"
-                  value={
-                    e._id === editeddata.id ? editeddata.title || e.title : e.title
-                  }
-                />
-              ) : (
-                <h3>Title: {e.title}</h3>
-              )}
-              {btn ? (
-                <textarea
-                  name=""
-                  id="description"
-                  cols="40"
-                  rows="2"
-                  value={e._id === editeddata.id ? editeddata.description || e.description : e.description}
-                  onChange={handleEditChange}
-                ></textarea>
-              ) : (
-                <p>Description: {e.description}</p>
-              )}
-
-              <p>Status: {e.status}</p>
-              <select
-                onChange={(event) => {
-                  handleChangeStatus(e._id, event);
-                }}
-                value={status} 
-              >
-                <option value="">Select</option>
-                <option value="To-do">To-do</option>
-                <option value="Doing">Doing</option>
-                <option value="Done">Done</option>
-              </select>
-              <button
-                onClick={() => {
-                  handleEdit(e._id);
-                }}
-              >
-                {btn && e._id === editeddata.id ? "Save" : "Edit Task"}
-              </button>
-              <button className="del" onClick={() => handleDelete(e._id)}>
-                Delete task
-              </button>
-            </div>
-          ))}
-        </div>
-      </div>
-      <div className="done">
-        <h2>Done</h2>
-        <div>
-          {doneData.map((e) => (
-            <div className="card" key={e.id}>
-              {btn ? (
-                <input
-                  type="text"
-                  onChange={(e)=>handleEditChange(e,e._id)}
-                  id="title"
-                  value={
-                    e._id === editeddata.id ? editeddata.title || e.title : e.title
-                  }
-                />
-              ) : (
-                <h3>Title: {e.title}</h3>
-              )}
-              {btn ? (
-                <textarea
-                  name=""
-                  id="description"
-                  cols="40"
-                  rows="2"
-                  value={e._id === editeddata.id ? editeddata.description || e.description : e.description}
-                  onChange={handleEditChange}
-                ></textarea>
-              ) : (
-                <p>Description: {e.description}</p>
-              )}
-
-              <p>Status: {e.status}</p>
-              <select
-                onChange={(event) => {
-                  handleChangeStatus(e._id, event);
-                }}
-                value={status} 
-              >
-                <option value="">Select</option>
-                <option value="To-do">To-do</option>
-                <option value="Doing">Doing</option>
-                <option value="Done">Done</option>
-              </select>
-              <button
-                onClick={() => {
-                  handleEdit(e._id);
-                }}
-              >
-                {btn && e._id === editeddata.id ? "Save" : "Edit Task"}
-              </button>
-              <button className="del" onClick={() => handleDelete(e._id)}>
-                Delete task
-              </button>
-            </div>
-          ))}
-        </div>
+            <p>Status: {e.status}</p>
+            <select
+              onChange={(event) => {
+                handleChangeStatus(e._id, event);
+              }}
+              value={status} 
+            >
+              <option value="">Select</option>
+              <option value="To-do">To-do</option>
+              <option value="Doing">Doing</option>
+              <option value="Done">Done</option>
+            </select>
+            <button
+              onClick={() => {
+                handleEdit(e._id);
+              }}
+            >
+              {btn && e._id === editeddata.id ? "Save" : "Edit Task"}
+            </button>
+            <button className="del" onClick={() => handleDelete(e._id)}>
+              Delete task
+            </button>
+          </div>
+        ))}
       </div>
     </div>
+    <div className="doing">
+      <h2>Doing</h2>
+      <div>
+        {doingData.map((e) => (
+          <div className="card" key={e.id}>
+            {(btn && e._id === editeddata.id) ? (
+              <input
+                type="text"
+                onChange={(e)=>handleEditChange(e,e._id)}
+                id="title"
+                value={
+                  e._id === editeddata.id ? editeddata.title || e.title : e.title
+                }
+              />
+            ) : (
+              <h3>Title: {e.title}</h3>
+            )}
+            {(btn && e._id === editeddata.id)? (
+              <textarea
+                name=""
+                id="description"
+                cols="40"
+                rows="2"
+                value={e._id === editeddata.id ? editeddata.description || e.description : e.description}
+                onChange={handleEditChange}
+              ></textarea>
+            ) : (
+              <p>Description: {e.description}</p>
+            )}
+
+            <p>Status: {e.status}</p>
+            <select
+              onChange={(event) => {
+                handleChangeStatus(e._id, event);
+              }}
+              value={status} 
+            >
+              <option value="">Select</option>
+              <option value="To-do">To-do</option>
+              <option value="Doing">Doing</option>
+              <option value="Done">Done</option>
+            </select>
+            <button
+              onClick={() => {
+                handleEdit(e._id);
+              }}
+            >
+              {btn && e._id === editeddata.id ? "Save" : "Edit Task"}
+            </button>
+            <button className="del" onClick={() => handleDelete(e._id)}>
+              Delete task
+            </button>
+          </div>
+        ))}
+      </div>
+    </div>
+    <div className="done">
+      <h2>Done</h2>
+      <div>
+        {doneData.map((e) => (
+          <div className="card" key={e.id}>
+            {(btn && e._id === editeddata.id) ? (
+              <input
+                type="text"
+                onChange={(e)=>handleEditChange(e,e._id)}
+                id="title"
+                value={
+                  e._id === editeddata.id ? editeddata.title || e.title : e.title
+                }
+              />
+            ) : (
+              <h3>Title: {e.title}</h3>
+            )}
+            {(btn && e._id === editeddata.id) ? (
+              <textarea
+                name=""
+                id="description"
+                cols="40"
+                rows="2"
+                value={e._id === editeddata.id ? editeddata.description || e.description : e.description}
+                onChange={handleEditChange}
+              ></textarea>
+            ) : (
+              <p>Description: {e.description}</p>
+            )}
+
+            <p>Status: {e.status}</p>
+            <select
+              onChange={(event) => {
+                handleChangeStatus(e._id, event);
+              }}
+              value={status} 
+            >
+              <option value="">Select</option>
+              <option value="To-do">To-do</option>
+              <option value="Doing">Doing</option>
+              <option value="Done">Done</option>
+            </select>
+            <button
+              onClick={() => {
+                handleEdit(e._id);
+              }}
+            >
+              {btn && e._id === editeddata.id ? "Save" : "Edit Task"}
+            </button>
+            <button className="del" onClick={() => handleDelete(e._id)}>
+              Delete task
+            </button>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+    </div>
+
+   
   );
 };
