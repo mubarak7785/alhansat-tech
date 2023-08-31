@@ -3,7 +3,7 @@ const cors = require("cors")
 
 const app = express()
 app.use(cors())
-const port=process.env.PORT || 2954
+const port=process.env.PORT || 2554
 app.use(express.json())
 
 const connect=require("./config/db")
